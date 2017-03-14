@@ -1,0 +1,18 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <title>TinyApp</title>
+</head>
+
+
+<body>
+<header><% include partials/_header %></header>
+  <ul>
+    <% for(let prop in urls ) { %>
+      <li><%= prop %> - <%= urls[prop] %> </li>
+      <% } %>
+  </ul>
+
+  </ul>
+</body>
+</html>
