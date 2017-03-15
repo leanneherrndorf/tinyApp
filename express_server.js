@@ -18,6 +18,15 @@ var urlDatabase = {
   "9sm5xK": "http://www.google.com"
 };
 
+app.get("/u/:shortURL", (req, res) => {
+  if(!urlDatabase[req.params.shortURL]){
+    res.status(404).send('Not found!');
+  }else {
+    let longURL = urlDatabase[req.params.shortURL];
+    res.redirect(longURL);
+  }
+});
+
 app.get("/", (req, res) => {
   res.end("Hello!");
 });
@@ -36,8 +45,9 @@ app.get("/urls/new", (req, res) => {
 });
 
 app.post("/urls", (req, res) => {
-  console.log(req.body);  // debug statement to see POST parameters
-  res.send("Ok");         // Respond with 'Ok' (we will replace this)
+  let getshortURL = generateRandomString();
+  urlDatabase[getshortURL] = req.body.longURL;
+  res.redirect(`urls/${getshortURL}`);
 });
 
 app.get("/urls/:id", (req, res) => {
