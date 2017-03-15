@@ -7,14 +7,18 @@
 
 <body>
 <header><% include partials/_header %></header>
-  <ul>
+  <table>
     <% for(let prop in urls ) { %>
-      <li><%= prop %> - <%= urls[prop] %> </li>
-      <form method="POST" action="/urls/<%= prop %>/delete">
-        <input type="submit" value="Delete">
+      <tr>
+      <td><b><%= prop %></b></td>
+      <td> -> <a href="<%= urls[prop] %>"><%= urls[prop] %></a></td>
+      <td> <a href="/urls/<%= prop %>">Edit</a></td>
+      <form style ='display:inline-block;' method="POST" action="/urls/<%= prop %>/delete">
+      <td><input style='display:inline-block;' type="submit" value="Delete"></td>
+      </tr>
       </form>
       <% } %>
-  </ul>
+  </table>
 
 </body>
 </html>

@@ -20,7 +20,7 @@ var urlDatabase = {
 
 app.get("/u/:shortURL", (req, res) => {
   if(!urlDatabase[req.params.shortURL]){
-    res.status(404).send('Not found!');
+    res.status(404).redirect("https://http.cat/404");
   }else {
     let longURL = urlDatabase[req.params.shortURL];
     res.redirect(longURL);
@@ -57,6 +57,11 @@ app.get("/urls/:id", (req, res) => {
 
 app.post("/urls/:id/delete", (req,res) => {
   delete urlDatabase[req.params.id];
+  res.redirect("/urls");
+});
+
+app.post("/urls/:id", (req,res) => {
+  urlDatabase[req.params.id]=req.body.longURL;
   res.redirect("/urls");
 });
 
