@@ -10,9 +10,11 @@
   <ul>
     <% for(let prop in urls ) { %>
       <li><%= prop %> - <%= urls[prop] %> </li>
+      <form method="POST" action="/urls/<%= prop %>/delete">
+        <input type="submit" value="Delete">
+      </form>
       <% } %>
   </ul>
 
-  </ul>
 </body>
 </html>
