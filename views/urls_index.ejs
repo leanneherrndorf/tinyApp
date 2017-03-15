@@ -11,7 +11,7 @@
     <% for(let prop in urls ) { %>
       <tr>
       <td><b><%= prop %></b></td>
-      <td> -> <a href="<%= urls[prop] %>"><%= urls[prop] %></a></td>
+      <td><span>&#8594;</span><a href="<%= urls[prop] %>"><%= urls[prop] %></a></td>
       <td> <a href="/urls/<%= prop %>">Edit</a></td>
       <form style ='display:inline-block;' method="POST" action="/urls/<%= prop %>/delete">
       <td><input style='display:inline-block;' type="submit" value="Delete"></td>
