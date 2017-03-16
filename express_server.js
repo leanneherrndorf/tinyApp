@@ -36,7 +36,7 @@ function generateRandomString() {
 function checkEmail(email, password) {
 
   for (let key in users){
-    if(users[key][email] === email && users[key][password] === password) {
+    if(users[key]["email"] === email && users[key].password === password) {
       return key;
     }
   }
@@ -47,28 +47,32 @@ function checkifExistingEmail(email) {
 
   for (let key in users){
     if(users[key][email] === email) {
-      return false;
+      return true;
     }
   }
-  return true;
+  return false;
 }
-
 
 app.post("/register", (req, res) => {
   let getUserID = generateRandomString();
-  if((!req.body.email || !req.body.password)||(checkifExistingEmail(req.body.email))) {
+
+  if(req.body.email && req.body.password){
+    if(checkifExistingEmail(req.body.email) === false){
+
+      let newUser =
+      {
+      id: getUserID,
+      email: req.body.email,
+      password: req.body.password };
+
+      users[getUserID] = newUser;
+
+      res.cookie('user_id', getUserID);
+      res.redirect('/');
+    }
+  }else{
     res.status(400).render('400');
   }
-  let newUser =
-  {
-  id: getUserID,
-  email: req.body.email,
-  password: req.body.password };
-
-  users[getUserID] = newUser;
-
-  res.cookie('user_id', getUserID);
-  res.redirect('/');
 });
 
 app.post("/login", (req, res) => {
