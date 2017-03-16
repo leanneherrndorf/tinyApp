@@ -1,26 +1,23 @@
-var express = require("express");
-var cookieParser = require('cookie-parser');
-var app = express();
-var PORT = process.env.PORT || 8080; // default port 8080
+const express = require("express");
+const cookieParser = require('cookie-parser');
+const app = express();
+const PORT = process.env.PORT || 8080; // default port 8080
+const bodyParser = require("body-parser");
+
+const urlDatabase = {
+  "b2xVn2": "http://www.lighthouselabs.ca",
+  "9sm5xK": "http://www.google.com"
+};
 
 app.set("view engine", "ejs");
 app.use(express.static('public'));
-
-const bodyParser = require("body-parser");
 app.use(bodyParser.urlencoded({extended: true}));
-
 app.use(cookieParser());
-
 
 function generateRandomString() {
   let randomString = Math.random().toString(36).substr(2, 6);
   return randomString;
 }
-
-var urlDatabase = {
-  "b2xVn2": "http://www.lighthouselabs.ca",
-  "9sm5xK": "http://www.google.com"
-};
 
 app.get("/u/:shortURL", (req, res) => {
   if(!urlDatabase[req.params.shortURL]){
@@ -49,7 +46,7 @@ app.get("/urls/new", (req, res) => {
 
 app.post("/login", (req, res) => {
   if(!req.body.username){
-
+    continue();
   }else{
     res.cookie('username', req.body.username);
     res.redirect("/urls");
