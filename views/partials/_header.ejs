@@ -3,19 +3,13 @@
 <img src="/images/scissors.gif" style = "height:50px; padding-top:8px"/>
 </td>
 <td><h1>TinyApp</h1></td>
-</table>
-<body>
-<% if(!username) { %>
-  <form action="/login" method="POST" style="margin:20px;">
-    <label for="username">Name:</label>
-    <input id="username" type="text" name="username" placeholder="username" style="width: 300px">
-    <input type="submit" value="Sign In">
-  </form>
-<% } else{ %>
-    <b>Welcome,</b> <%= username %>
-    <form style ='display:inline-block;' action="/logout" method="POST" style="margin:20px;">
-      <input type="submit" value="Log out">
-    </form>
-<% } %>
+<tr>
 
-</body>
+<td><a href="/login">Login</a></td>
+<td><a href="/register">Register</a></td>
+</tr>
+
+</table>
+
+
+
