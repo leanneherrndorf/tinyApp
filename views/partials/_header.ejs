@@ -4,9 +4,20 @@
 </td>
 <td><h1>TinyApp</h1></td>
 <tr>
+<% if(user){ %>
+
+<td> Welcome, <b>'<%= user %>' </b></td>
+<td><form action="/logout" method="POST" style="margin:50px;">
+    <input type="submit" value="Log Out">
+    </form>
+</td>
+
+<% }else{ %>
 
 <td><a href="/login">Login</a></td>
 <td><a href="/register">Register</a></td>
+
+<% }%>
 </tr>
 
 </table>
