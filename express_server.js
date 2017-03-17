@@ -100,9 +100,13 @@ app.get("/u/:shortURL", (req, res) => {
 });
 
 app.get("/", (req, res) => {
-  let templateVars = { user: req.cookies["user_id"], urls: urlDatabase  };
+  let templateVars = { user: req.cookies["user_id"], urls: urlDatabase };
+  if(req.cookies["user_id"]){
   res.render("urls_index", templateVars);
   res.end("Hello!");
+}else{
+    res.render("login", templateVars);
+  }
 });
 
 app.get("/urls", (req, res) => {
@@ -122,7 +126,11 @@ app.get("/register", (req, res) => {
 
 app.get("/urls/new", (req, res) => {
   let templateVars = { user: req.cookies["user_id"] };
-  res.render("urls_new", templateVars);
+  if(req.cookies["user_id"]){
+    res.render("urls_new", templateVars);
+  }else{
+    res.render("/login", templateVars);
+  }
 });
 
 
