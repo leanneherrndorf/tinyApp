@@ -3,10 +3,12 @@
 <img src="/images/scissors.gif" style = "height:50px; padding-top:8px"/>
 </td>
 <td><h1>TinyApp</h1></td>
+</table>
+<table>
 <tr>
 <% if(user){ %>
 
-<td> Welcome, <b>'<%= user %>' </b></td>
+<td> Welcome, <b><%= user %> </b></td>
 <td><form action="/logout" method="POST" style="margin:50px;">
     <input type="submit" value="Log Out">
     </form>

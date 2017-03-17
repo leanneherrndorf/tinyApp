@@ -2,19 +2,26 @@
 <html lang="en">
 <head></head>
 <body style="font-size:20px; padding:50px;">
-<header><% include partials/_header %></header>
-  <table>
+<% include partials/_header %>
+
+
     <% for(let prop in urls ) { %>
+      <table>
       <tr>
       <td><b><%= prop %></b></td>
-      <td><span>&#8594;</span><a href="<%= urls[prop] %>"><%= urls[prop] %></a></td>
+      <td><span>&#8594;</span><a href="<%= urls[prop].longURL %>"><%= urls[prop].longURL %></a></td>
       <td> <a href="/urls/<%= prop %>">Edit</a></td>
+      <form style ='display:inline-block;' method="GET" action="/urls/<%= prop %>">
+      <td><input style='display:inline-block;' type="submit" value="Edit"></td>
+      </form>
       <form style ='display:inline-block;' method="POST" action="/urls/<%= prop %>/delete">
       <td><input style='display:inline-block;' type="submit" value="Delete"></td>
-      </tr>
       </form>
+      </tr>
+      </table>
       <% } %>
-  </table>
+
+ <a href="/urls/new">Create a New Short Link</a>
 
 </body>
 </html>
