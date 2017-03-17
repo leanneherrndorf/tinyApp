@@ -10,7 +10,6 @@
       <tr>
       <td><b><%= prop %></b></td>
       <td><span>&#8594;</span><a href="<%= urls[prop].longURL %>"><%= urls[prop].longURL %></a></td>
-      <td> <a href="/urls/<%= prop %>">Edit</a></td>
       <form style ='display:inline-block;' method="GET" action="/urls/<%= prop %>">
       <td><input style='display:inline-block;' type="submit" value="Edit"></td>
       </form>

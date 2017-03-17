@@ -8,7 +8,8 @@
 <tr>
 <% if(user){ %>
 
-<td> Welcome, <b><%= user %> </b></td>
+<td> Welcome, <b><%= useremail %> </b></td>
+<td><a href= "/urls">My Links</a>
 <td><form action="/logout" method="POST" style="margin:50px;">
     <input type="submit" value="Log Out">
     </form>
