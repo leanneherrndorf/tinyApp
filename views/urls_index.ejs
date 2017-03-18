@@ -1,15 +1,22 @@
 <!DOCTYPE html>
+<link type="text/css" href="https://fonts.googleapis.com/css?family=Lato:100" rel="stylesheet" rel="stylesheet">
+<style>
+body {
+  font-family: 'Lato', sans-serif;
+  }
+}
+</style>
 <html lang="en">
 <head></head>
 <body style="font-size:20px; padding:50px;">
 <% include partials/_header %>
 
-
+<table>
     <% for(let prop in urls ) { %>
-      <table>
+
       <tr>
       <td><b><%= prop %></b></td>
-      <td><span>&#8594;</span><a href="<%= urls[prop].longURL %>"><%= urls[prop].longURL %></a></td>
+      <td><span>&#8594;</span></td><td><a href="<%= urls[prop].longURL %>"><%= urls[prop].longURL %></a></td>
       <form style ='display:inline-block;' method="GET" action="/urls/<%= prop %>">
       <td><input style='display:inline-block;' type="submit" value="Edit"></td>
       </form>
@@ -17,9 +24,8 @@
       <td><input style='display:inline-block;' type="submit" value="Delete"></td>
       </form>
       </tr>
-      </table>
       <% } %>
-
+ </table>
  <a href="/urls/new">Create a New Short Link</a>
 
 </body>

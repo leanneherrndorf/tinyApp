@@ -1,14 +1,27 @@
 <!DOCTYPE html>
 <html lang="en">
+<link type="text/css" href="https://fonts.googleapis.com/css?family=Lato:100" rel="stylesheet" rel="stylesheet">
+<style>
+body {
+  font-family: 'Lato', sans-serif;
+  }
+}
+</style>
   <head></head>
   <body style="font-size:20px; padding:50px;">
     <% include partials/_header %>
 
 
     <form action="/urls" method="POST" style="margin:50px;">
-      <label for="longURL">Enter a URL:</label>
-      <input id="longURL" type="text" name="longURL" placeholder="include http://" style="width: 300px;">
+      <table>
+      <tr>
+      <p><label for="longURL">Enter a URL:</label></p></tr>
+      <tr>
+      <input id="longURL" type="text" name="longURL" placeholder="include http://" style="width: 300px;"></tr>
+      <tr>
       <input type="submit" value="Submit">
+      </tr>
+      </table>
     </form>
 
 
