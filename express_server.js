@@ -1,3 +1,11 @@
+//Leanne Herrndorf
+//Project 1: TinyApp
+
+//This app is designed to allow users to shorten long URLs. Users can register,
+//log into their account, create and modify new tiny URLs and use and share these
+//links outside of the app.
+//Listening on port 3000.
+
 const express = require("express");
 const app = express();
 const cookieSession = require('cookie-session');
@@ -42,11 +50,13 @@ const users = {
   }
 };
 
+//Generate a random 6 digit alphanumeric sequence to use as the small URL
 function generateRandomString() {
   let randomString = Math.random().toString(36).substr(2, 6);
   return randomString;
 }
 
+//For users logging in, used as authentication that both the email and password match existing fields
 function checkEmail(email, password) {
 
   for (let key in users){
@@ -57,6 +67,7 @@ function checkEmail(email, password) {
   return false;
 }
 
+//For users registering, check if the email has been already registered or not
 function checkifExistingEmail(email) {
 
   for (let key in users){
@@ -67,6 +78,7 @@ function checkifExistingEmail(email) {
   return false;
 }
 
+//Fetches the URLs for that specific user
 function urlsForUser(id){
   let userURLs = {};
   for( let prop in urlDatabase) {
@@ -101,6 +113,8 @@ app.get("/urls", (req, res) => {
   }
 });
 
+//If user logged in, return a form to generate a new short URL
+//If not, sends an error message and link to log back in
 app.get("/urls/new", (req, res) => {
   if(req.session.user_id){
     let templateVars = {
@@ -114,6 +128,9 @@ app.get("/urls/new", (req, res) => {
   }
 });
 
+
+//if url doesn't exist, user not logged in, or user does not match owner of URL send relevant error message
+//Else a page that shows the shortened URL, the long URL
 app.get("/urls/:id", (req, res) => {
   if(!urlDatabase[req.params.id]){
     res.status(404).render('404');
@@ -134,6 +151,8 @@ app.get("/urls/:id", (req, res) => {
   }
 });
 
+
+//If exists, redirect to corresponding long URL, else return a 404 response
 app.get("/u/:id", (req, res) => {
   if(!urlDatabase[req.params.id]){
     res.status(404).render('404');
@@ -143,6 +162,8 @@ app.get("/u/:id", (req, res) => {
   }
 });
 
+//If logged in, generate short URL, save link to user, redirect to urls/:id
+//If not, return a 401 response
 app.post("/urls", (req, res) => {
   if(req.session.user_id){
     let getshortURL = generateRandomString();
@@ -158,6 +179,9 @@ app.post("/urls", (req, res) => {
   }
 });
 
+
+//if url doesn't exist, user not logged in, or user does not match owner of URL send relevant error message
+//Else redirect to urls/:id
 app.post("/urls/:id", (req, res) => {
   if(urlDatabase[req.params.id].userID === req.session.user_id){
     urlDatabase[req.params.id].longURL = req.body.longURL;
@@ -168,6 +192,8 @@ app.post("/urls/:id", (req, res) => {
   }
 });
 
+//If logged in, redirect to /
+//Else login page
 app.get("/login", (req, res) => {
   if(req.session.user_id){
     res.redirect('/');
@@ -178,6 +204,8 @@ app.get("/login", (req, res) => {
   }
 });
 
+//If logged in, redirect to /
+//Else register page
 app.get("/register", (req, res) => {
   if(req.session.user_id){
     res.redirect('/');
@@ -188,6 +216,8 @@ app.get("/register", (req, res) => {
   }
 });
 
+//Create a user, encrypt password, set a cookie
+//if error return 400 response
 app.post("/register", (req, res) => {
   let getUserID = generateRandomString();
 
@@ -207,6 +237,8 @@ app.post("/register", (req, res) => {
   }
 });
 
+//if email and password match existing user, set a cookie and redirect to /
+//Else return 401 reponse
 app.post("/login", (req, res) => {
 
   if(req.session.user_id){
@@ -222,6 +254,7 @@ app.post("/login", (req, res) => {
   }
 });
 
+//Delete cookie, return to home page
 app.post("/logout", (req, res) => {
   delete req.session.user_id;
   res.redirect('/');
